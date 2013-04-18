@@ -51,9 +51,9 @@ Rackspace CloudFiles also supports regions via its v2.0 auth system, and so
 does Apodini. Use the `authenticate-with-region` function, which supports the
 same arguments, but also allows you to provide three extra options:
 
-* :region <code> -- specify the region you want
-* :internal true -- retrieve the internal URL for that region (default)
-* :external true -- retrieve the external (public) URL
+* `:region` -- specify the region you want
+* `:internal true` -- retrieve the internal URL for that region (default)
+* `:external true` -- retrieve the external (public) URL
 
 If your CloudFiles account includes a default region, and you do not provide
 a :region option, it will use that. If neither a default nor a :region exists,
