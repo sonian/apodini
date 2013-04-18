@@ -195,4 +195,4 @@ pass `lein bikeshed` before merge.
 
 ## License
 
-Apodini is released under the [Apache Licence, 2.0](https://raw.github.com/sonian/apodini/master/LICENSE.txt).
+Apodini is released under the [Apache License, 2.0](https://raw.github.com/sonian/apodini/master/LICENSE.txt).
