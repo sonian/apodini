@@ -299,12 +299,13 @@
 
 (defmacro with-swift-session
   [config & body]
-  `(with-bindings (into {} (for [var @#'apodini.api/public-api]
-                             [var (partial @var ~config)]))
-     (try
-       ~@body
-       (catch java.net.ConnectException ce#
-         (if (.contains "Connection refused" (.getMessage ce#))
-           (throw+ {:original-exception ce#
-                    :given-config ~config})
-           (throw ce#))))))
+  `(let [c# ~config]
+     (with-bindings (into {} (for [var @#'apodini.api/public-api]
+                               [var (partial @var c#)]))
+       (try
+         ~@body
+         (catch java.net.ConnectException ce#
+           (if (.contains "Connection refused" (.getMessage ce#))
+             (throw+ {:original-exception ce#
+                      :given-config c#})
+             (throw ce#)))))))
