@@ -29,7 +29,7 @@
 
 ;; fixtures
 (use-fixtures
- :once
+ :each
  (fn [f]
    (let [auth (authenticate (:account test-config)
                             (:key test-config)
