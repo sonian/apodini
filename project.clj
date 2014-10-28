@@ -18,7 +18,7 @@
   :license {:name "Apache 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
   :dependencies [[cheshire "5.3.1"]
-                 [clj-http "0.7.2"]
+                 [clj-http "1.0.1"]
                  [commons-codec "1.9"]
                  [slingshot "0.10.3"]]
   :profiles {:dev {:dependencies [[org.clojure/clojure "1.6.0"]]}

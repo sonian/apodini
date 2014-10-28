@@ -228,11 +228,11 @@
   (let [response (http/head (str (:x-storage-url config) "/" path)
                             (merge (headers config)
                                    (:http-opts config)))
-        headers (keywordize-keys (:headers response))]
-    (select-keys
-     headers
-     (filter #(re-find #"x-(account|container|object)-meta" (name %))
-             (keys headers)))))
+        headers (:headers response)]
+    (->> (keys headers)
+         (filter #(re-find #"(?i)x-(account|container|object)-meta" (name %)))
+         (select-keys headers)
+         (into (empty headers)))))
 
 (defn ^:api ^:dynamic set-meta
   "Set metadata for the given path. Works for account, container, and
