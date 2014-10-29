@@ -12,7 +12,7 @@
 ;;   See the License for the specific language governing permissions and
 ;;   limitations under the License.
 
-(defproject sonian/apodini "1.1.0-SNAPSHOT"
+(defproject sonian/apodini "1.1.0"
   :description "Apodini: a typical swift client"
   :url "http://github.com/sonian/apodini"
   :license {:name "Apache 2.0"
