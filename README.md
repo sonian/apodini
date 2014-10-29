@@ -14,7 +14,7 @@ apodidae. That word comes from the ancient greek 'apous' meaning
 [Clojars](http://clojars.org/sonian/apodini):
 
 ```clojure
-[sonian/apodini "1.0.0"]
+[sonian/apodini "1.1.0"]
 ```
 
 Apodini requires Clojure 1.4.0 or later.
