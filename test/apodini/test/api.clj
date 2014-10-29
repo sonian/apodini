@@ -29,7 +29,7 @@
 
 ;; fixtures
 (use-fixtures
- :once
+ :each
  (fn [f]
    (let [auth (authenticate (:account test-config)
                             (:key test-config)
@@ -393,7 +393,7 @@
     (testing "get container meta"
       (is (contains? (swift/get-meta test-container) :x-container-meta-test)))
     (testing "delete container meta"
-      (swift/delete-meta test-container "X-Account-Meta-Test")
+      (swift/delete-meta test-container "X-Container-Meta-Test")
       (is (not
            (contains? (swift/get-meta test-container)
                       "X-Container-Meta-Test"))))))

@@ -14,8 +14,7 @@
 
 (ns apodini.auth
   (:require [cheshire.core :as json]
-            [clj-http.client :as http]
-            [clojure.walk :refer [keywordize-keys]]))
+            [clj-http.client :as http]))
 
 (defn authenticate
   "Authenticate with Swift.
@@ -26,15 +25,14 @@
             :x-auth-token <token>}"
   [account key auth-url & {:as opts}]
   (let [http-opts (or (:http-opts opts) {})
-        resp (keywordize-keys
-              (http/get auth-url
-                        (merge http-opts
-                               {:headers
-                                {"X-Auth-User" account
-                                 "X-Auth-Key" key}})))]
-    (merge {:status (:status resp)
-            :http-opts http-opts}
-           (:headers resp))))
+        resp (http/get auth-url
+                       (merge http-opts
+                              {:headers
+                               {"X-Auth-User" account
+                                "X-Auth-Key" key}}))]
+    (merge (:headers resp)
+           {:status (:status resp)
+            :http-opts http-opts})))
 
 (defn- auth-v2
   "Authenticate against a v2.0 endpoint, which expects a JSON POST."

@@ -228,11 +228,11 @@
   (let [response (http/head (str (:x-storage-url config) "/" path)
                             (merge (headers config)
                                    (:http-opts config)))
-        headers (keywordize-keys (:headers response))]
-    (select-keys
-     headers
-     (filter #(re-find #"x-(account|container|object)-meta" (name %))
-             (keys headers)))))
+        headers (:headers response)]
+    (->> (keys headers)
+         (filter #(re-find #"(?i)x-(account|container|object)-meta" (name %)))
+         (select-keys headers)
+         (into (empty headers)))))
 
 (defn ^:api ^:dynamic set-meta
   "Set metadata for the given path. Works for account, container, and
@@ -299,12 +299,13 @@
 
 (defmacro with-swift-session
   [config & body]
-  `(with-bindings (into {} (for [var @#'apodini.api/public-api]
-                             [var (partial @var ~config)]))
-     (try
-       ~@body
-       (catch java.net.ConnectException ce#
-         (if (.contains "Connection refused" (.getMessage ce#))
-           (throw+ {:original-exception ce#
-                    :given-config ~config})
-           (throw ce#))))))
+  `(let [c# ~config]
+     (with-bindings (into {} (for [var @#'apodini.api/public-api]
+                               [var (partial @var c#)]))
+       (try
+         ~@body
+         (catch java.net.ConnectException ce#
+           (if (.contains "Connection refused" (.getMessage ce#))
+             (throw+ {:original-exception ce#
+                      :given-config c#})
+             (throw ce#)))))))
